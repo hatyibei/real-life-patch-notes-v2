@@ -17,6 +17,12 @@ def main():
     src = os.path.join(here, ENTRY_NAME)
     dst = os.path.join(out_dir, ENTRY_NAME)
     shutil.copyfile(src, dst)
+    # The scorer compares characters exactly; prove the copy is faithful.
+    with open(src, "rb") as f:
+        original = f.read()
+    with open(dst, "rb") as f:
+        copied = f.read()
+    assert copied == original, "copy diverged from entry.txt"
 
 
 if __name__ == "__main__":
